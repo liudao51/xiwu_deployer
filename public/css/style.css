@@ -1,0 +1,103 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-weight: 100;
+    font-family: 'Lato';
+}
+
+.container {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.content {
+    text-align: center;
+    display: inline-block;
+}
+
+.title {
+    font-size: 30px;
+}
+
+.content .div_login {
+
+}
+
+.content li {
+    list-style: none;
+    height: 30px;
+    margin: 5px;
+    text-align: left;
+    float: left;
+    line-height: 30px;
+}
+
+.content .err {
+    color: red;
+}
+
+.content .left {
+    width: 200px;
+    clear: left;
+}
+
+.content .right {
+    /*width: 400px;*/
+    clear: right;
+    height: auto;
+}
+
+.content .output {
+    clear: both;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px grey dashed;
+    padding: 10px;
+}
+
+.content .output pre {
+    font-size: 13px;
+    color: #888;
+    margin: 10px;
+
+}
+
+.content .log_title {
+    font-size: 12px;
+    line-height: 20px;
+    color: #0b3100;
+    font-weight: bold;
+}
+
+.content .log_content {
+    font-size: 12px;
+    line-height: 20px;
+    color: #518059;
+}
+
+.return_back {
+    padding: 20px 0px 20px 0px;
+    clear: both;
+}
+
+.project_comment {
+    font-size: 14px;
+    color: brown;
+}
+
+.none {
+    display: none;
+}
+
+.red1 {
+    color: #CD3700;
+}
+
+.green1 {
+    color: #518059;
+}

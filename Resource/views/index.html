@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deployer</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div class="content" style="margin: 50px auto;">
+        <div class="title">登录</div>
+        <span class="err">{{ error }}</span>
+        <form action="/deployer/login" method="post">
+            <div class="div_login">
+                <ul>
+                    <li>登录名: <input type="text" name="user_name" value="{{ user_name }}"> </li>
+                    <li style="clear: both;">密&nbsp;码: <input type="password" name="password"> </li>
+                </ul>
+                <input type="submit" value="狠狠的登录" style="font-size:16px; padding: 5px 10px; margin: 20px 0px 0px 0px;" />
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

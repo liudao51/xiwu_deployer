@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>项目列表 - Deployer</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="title">welcome</div>
+        <div>
+            <ul>
+                <li class="left">请选择部署项目：</li>
+                <li class="right">
+                    {% for k, v in projects %}
+                    <a href="/deployer/project/{{k}}" style="text-decoration:underline; color:#0072e3;">{{k}}</a> ==>> <span class="project_comment">({{ v.comment }})</span><br/>
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

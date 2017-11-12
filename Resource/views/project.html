@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>项目《{{ project_name }}》 - Deployer</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <script src="/js/jquery-1.12.0.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="content">
+        <div class="title">当前项目: {{ project_name }}</div>
+        <div class="err">{{ error}}</div>
+        <div>
+            <ul>
+                <li class="left">项目目录:</li>
+                <li class="right">{{ project_path }}  ==>> <br /><span class="project_comment">({{ project_comment}})</span></li>
+                <li class="left">当前分支:</li>
+                <li class="right"><span id="branch_name">{{ current_branch_name }} </span></li>
+                <li class="left">切换分支(checkout):</li>
+                <li class="right">
+                    {% if switch_branch %}
+                    分支名:
+                    <select name="branches" id="branches">
+                        {% for item in branches %}
+                        <option value="{{ item.branch_name }}" {%if item.branch_name == current_branch_name %} selected {% endif %} >{{ item.branch_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button id="switch-force" value="" style="margin-left:10px;">切换分支</button>
+                    {% endif %}
+                    <a href="#" id="show1" style="font-size:10px; text-decoration:underline; color:#0072e3;">创建/删除</a>
+                </li>
+                <div class="none" id="hidediv1">
+                <li class="left red1">创建分支(new1):</li>
+                <li class="right">分支名:<input type="text" value="" id="new_branch_name" style="margin-left:7px;"> <button id="new-branch" value="">基于master创建分支</button></li>
+                <li class="left red1">创建分支(new2):</li>
+                <li class="right">分支名:<input type="text" value="" id="new_branch_name2" style="margin-left:7px;"> <button id="new-branch2" value="">基于原feature创建分支</button></li>
+                <li class="left green1">删除分支(del):</li>
+                <li class="right">分支名:
+                    <select name="branches2" id="branches2">
+                        {% for item in branches %}
+                        <option value="{{ item.branch_name }}" {%if item.branch_name == current_branch_name %} selected {% endif %} >{{ item.branch_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button id="del-branch" value="">删除分支</button>
+                </li>
+                </div>
+                <li class="left">同步分支(pull):</li>
+                <li class="right">
+                    <button id="pull" value="">同步分支</button>
+                    <a href="#" id="show2" style="font-size:10px; text-decoration:underline; color:#0072e3;">智能/高级</a>
+                </li>
+                <div class="none" id="hidediv2">
+                    <li class="left red1">智能同步(intell-pull):</li>
+                    <li class="right">
+                        <button id="intell-pull" value="">智能同步</button>
+                    </li>
+                    <li class="left green1">同步对象(fetch):</li>
+                    <li class="right">
+                        <button id="fetch" value="">同步对象</button>
+                    </li>
+                    <li class="left green1">回滚代码(reset):</li>
+                    <li class="right">版本号:<input type="text" value="" id="revsion" style="margin-left:7px;"> <button id="reset" value="">回滚代码</button></li>
+                </div>
+                <li class="left">删除缓存(cache):</li>
+
+                <li class="right"><button id="delete-cache" value="">删除缓存</button></li>
+            </ul>
+            <div class="output" style="display: none;">
+                <span>输出内容:</span>
+                <pre></pre>
+            </div>
+            <ul>
+                <li class="left">最新日志:</li>
+                <li class="right" id="lasts_log"></li>
+            </ul>
+        </div>
+        <div class="return_back"><a href="/deployer/projects" style="font-size:16px; text-decoration:underline; color:#0072e3;"> 返回项目列表>></a></div>
+    </div>
+</div>
+<script>
+
+    var last_logs = {{ last_logs|raw }};
+
+    function showLog(logs)
+    {
+        var html = '';
+        for (var i=0;i<logs.length;i++) {
+            for( k in logs[i])
+            {
+                html += '<span class="log_title"> '+k+':</span> <span class="log_content"> '+logs[i][k]+'</span><br/>'
+            }
+            html += '<hr color="#888" noshade="" size="1">';
+        }
+        $('#lasts_log').html(html);
+    }
+
+    $(document).ready(function(){
+
+        showLog(last_logs);
+
+        //基于master创建分支
+        $('#new-branch').click(function () {
+
+            if ($('#new_branch_name').val() == '') {
+                alert('请输入新的分支名');
+                $('#new_branch_name').focus();
+                return false;
+            }
+
+            if (!confirm('创建新的分支,是否继续?')) {
+                return false;
+            }
+
+            var url = '/deployer/newbranch';
+            var data = {
+                project_name: '{{ project_name }}',
+                new_branch_name: $('#new_branch_name').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+        //基于原feature创建分支
+        $('#new-branch2').click(function () {
+
+            if ($('#new_branch_name2').val() == '') {
+                alert('请输入新的分支名');
+                $('#new_branch_name2').focus();
+                return false;
+            }
+
+            if (!confirm('创建新的分支,是否继续?')) {
+                return false;
+            }
+
+            var url = '/deployer/newbranch2';
+            var data = {
+                project_name: '{{ project_name }}',
+                new_branch_name2: $('#new_branch_name2').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+        //删除分支
+        $('#del-branch').click(function(){
+            var url = '/deployer/deletebranch';
+            var data = {
+                project_name: '{{ project_name }}',
+                delete_branch_name: $('#branches2').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+        //正常切换分支
+        $('#switch').click(function(){
+            var url = '/deployer/switchbranch';
+            var data = {
+                project_name: '{{ project_name }}',
+                switch_branch_name: $('#branches').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                        $('#branch_name').html(r.data.branch_name);
+
+                        $('#switch').find('option').each(function () {
+                            if ($(this).val() == r.branch_name) {
+                                $(this).attr('selected', true);
+                            }
+                            else {
+                                $(this).attr('selected', false);
+                            }
+                        })
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+        //强制切换分支
+        $('#switch-force').click(function(){
+            var url = '/deployer/forceswitchbranch';
+            var data = {
+                project_name: '{{ project_name }}',
+                switch_branch_name: $('#branches').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                        $('#branch_name').html(r.data.branch_name);
+
+                        $('#switch').find('option').each(function () {
+                            if ($(this).val() == r.branch_name) {
+                                $(this).attr('selected', true);
+                            }
+                            else {
+                                $(this).attr('selected', false);
+                            }
+                        })
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+        //同步分支
+        $('#pull').click(function () {
+            var url = '/deployer/pull';
+            var data = {
+                project_name: '{{ project_name }}',
+                current_branch_name: '{{ current_branch_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                    }
+
+                },
+                dataType: 'json'
+            });
+        });
+
+        //智能同步
+        $('#intell-pull').click(function () {
+            var url = '/deployer/intellpull';
+            var data = {
+                project_name: '{{ project_name }}',
+                current_branch_name: '{{ current_branch_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                    }
+
+                },
+                dataType: 'json'
+            });
+        });
+
+        //同步对象
+        $('#fetch').click(function () {
+            var url = '/deployer/fetch';
+            var data = {
+                project_name: '{{ project_name }}',
+                current_branch_name: '{{ current_branch_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                    }
+
+                },
+                dataType: 'json'
+            });
+        });
+
+
+        //回滚
+        $('#reset').click(function () {
+
+            if ($('#revsion').val() == '') {
+                alert('请输入版本号');
+                $('#revsion').focus();
+                return false;
+            }
+
+            if (!confirm('恢复会删除已同步的修改,是否继续?')) {
+                return false;
+            }
+
+            var url = '/deployer/reset';
+            var data = {
+                project_name: '{{ project_name }}',
+                revsion: $('#revsion').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs)
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+
+        //删除命令缓存
+        $('#delete-cache').click(function () {
+
+            var url = '/deployer/deletecache';
+            var data = {
+                project_name: '{{ project_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+
+        //删除文件缓存
+        $('#build').click(function () {
+
+            var url = '/deployer/build';
+            var data = {
+                project_name: '{{ project_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output + "<br /><br /><span style='color:#F00;'>前端（微商城）编译需要1分钟，请稍候打开...</span>");
+
+                        showLog(r.data.last_logs);
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+    });
+    $('#show1').click(function(){
+        $('#hidediv1').toggle();
+    })
+    $('#show2').click(function(){
+        $('#hidediv2').toggle();
+    })
+</script>
+</body>
+</html>
