@@ -453,6 +453,37 @@ class DeployerController extends BaseController
         return $this->returnJSON($result);
     }
 
+
+    /**
+     * 更新数据库表结构
+     *
+     * @param project_name
+     * @return mixed|string
+     */
+    public function postUpdatedbtablestructure()
+    {
+        $project = $this->request->post('project_name');
+        if (!$this->checkLogin(false)) {
+            return $this->returnErrorJSON('请先登录');
+        }
+
+        $project = trim($project);
+
+        if (!self::checkProject($project)) {
+            return self::returnErrorJSON('项目不存在');
+        }
+
+        GitService::setProjectConfig($project);
+
+        $result = [];
+
+        //删除命令缓存
+        $result = GitService::updateDbTableStructure();
+
+        return $this->returnJSON($result);
+    }
+
+
     /**
      * 清除缓存
      *

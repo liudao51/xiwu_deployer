@@ -7,7 +7,8 @@
  */
 
 $config['users'] = array(
-    'amii_test' => '10adffff2713e2caaad10abcc5d207e5', //密码：md5($pwd.#deployer)
+    //密码：md5($pwd.#deployer)
+    'amii_test' => '39aeca889702345cadcf49a65c4845a8', //amiiplus666
     'liuzhuanwei' => '3d1865a9d05547e0a8bd46d7430d1db7',
 );
 
@@ -16,98 +17,21 @@ define('GIT_HOST_NEW', 'https://amii_test:a123456@git-dev.amii.com:8443/r/');
 $config['projects'] = array(
     // 测试服务器的部署配置
     'test' => array(
-        'mtest_outer' => array(
-            'comment' => '测试1：mtest.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
+        'distest_inner' => array(
+            'comment' => '测试：distest.amii.com -- amii_apps_backend_distribution_inner',
+            'project_path' => '/home/vagrant/www/distest_amii_web',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
                 'laravel/.env',
-                'laravel/public/mtest_outer.lock'
+                'laravel/public/distest_inner.lock'
             ),
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
             ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            )
-        ),
-        'mtest_inner' => array(
-            'comment' => '测试1：mtest.amii.com -- amii_apps_backend_inner',
-            'project_path' => '/home/vagrant/www/amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/mtest_inner.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
-            ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            )
-        ),
-        'mtest2_outer' => array(
-            'comment' => '测试2：mtest2.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/mtest2_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/mtest2_outer.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
-            ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            )
-        ),
-        'mtest2_inner' => array(
-            'comment' => '测试2：mtest2.amii.com -- amii_apps_backend_inner',
-            'project_path' => '/home/vagrant/www/mtest2_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/mtest2_inner.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
-            ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            )
-        ),
-        'dtest_outer' => array(
-            'comment' => 'app开发：dtest.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/dtest_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/dtest_outer.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
@@ -117,9 +41,9 @@ $config['projects'] = array(
             )
         ),
         'dtest_inner' => array(
-            'comment' => 'app开发：dtest.amii.com -- amii_apps_backend_inner',
+            'comment' => 'app开发：dtest.amii.com -- amii_apps_backend_distribution_inner',
             'project_path' => '/home/vagrant/www/dtest_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
@@ -129,6 +53,9 @@ $config['projects'] = array(
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
             ),
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
+            ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
             ),
@@ -136,30 +63,33 @@ $config['projects'] = array(
                 '.idea'
             )
         ),
-        'weitest_outer' => array(
-            'comment' => '老威：weitest.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/weitest_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
+        'mtest_inner' => array(
+            'comment' => '预生产：mtest.amii.com -- amii_apps_backend_distribution_inner',
+            'project_path' => '/home/vagrant/www/mtest_amii_web',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
                 'laravel/.env',
-                'laravel/public/weitest_outer.lock'
+                'laravel/public/mtest_inner.lock'
             ),
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
+            ),
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
-            ),
+            )
         ),
         'weitest_inner' => array(
-            'comment' => '老威：weitest.amii.com -- amii_apps_backend_inner',
+            'comment' => '老威：weitest.amii.com -- amii_apps_backend_distribution_inner',
             'project_path' => '/home/vagrant/www/weitest_amii_web',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
@@ -169,25 +99,8 @@ $config['projects'] = array(
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
             ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            ),
-        ),
-        'fetest_inner' => array(
-            'comment' => '前端：fetest.amii.com -- amii_apps_backend_inner',
-            'project_path' => '/home/vagrant/www/fontend',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/fetest_inner.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
@@ -196,18 +109,21 @@ $config['projects'] = array(
                 '.idea'
             ),
         ),
-        'fetest_outer' => array(
-            'comment' => '前端：fetest.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/fontend',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
+        'natest_inner' => array(
+            'comment' => '米娜：natest.amii.com -- amii_apps_backend_distribution_inner',
+            'project_path' => '/home/vagrant/www/natest_amii_web',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
                 'laravel/.env',
-                'laravel/public/fetest_outer.lock'
+                'laravel/public/natest_inner.lock'
             ),
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
+            ),
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
@@ -216,38 +132,21 @@ $config['projects'] = array(
                 '.idea'
             ),
         ),
-        'fetest2_inner' => array(
-            'comment' => '前端：fetest2.amii.com -- amii_apps_backend_inner',
-            'project_path' => '/home/vagrant/www/fontend2',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_inner.git',
+        'huatest_inner' => array(
+            'comment' => '汝华：huatest.amii.com -- amii_apps_backend_distribution_inner',
+            'project_path' => '/home/vagrant/www/huatest_amii_web',
+            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_distribution_inner.git',
             'switch_branch' => true,
             'backup_path' => '/www/backup/',
             'backup_files' => array(
                 'laravel/.env',
-                'laravel/public/fetest2_inner.lock'
+                'laravel/public/huatest_inner.lock'
             ),
             'build_cmd' => array(
                 'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
             ),
-            'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
-            ),
-            'delete_files' => array(
-                '.idea'
-            ),
-        ),
-        'fetest2_outer' => array(
-            'comment' => '前端：fetest2.amii.com -- amii_apps_backend_outer',
-            'project_path' => '/home/vagrant/www/fontend2',
-            'project_git_origin' => GIT_HOST_NEW . 'amii_apps_backend_outer.git',
-            'switch_branch' => true,
-            'backup_path' => '/www/backup/',
-            'backup_files' => array(
-                'laravel/.env',
-                'laravel/public/fetest2_outer.lock'
-            ),
-            'build_cmd' => array(
-                'vue' => 'cd laravel; npm run prod;', //命令间用";"分隔
+            'update_db_table_structure_cmd' => array(
+                'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
                 'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔

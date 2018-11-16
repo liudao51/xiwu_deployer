@@ -19,6 +19,7 @@ class GitService
     private static $backup_files;
     private static $delete_files;
     private static $build_cmd;
+    private static $update_db_table_structure_cmd;
     private static $clean_cache_cmd;
     private static $clean_file_cache;
     private static $ssh_hosts;
@@ -122,6 +123,7 @@ class GitService
         self::$backup_files = isset($project_config['backup_files']) ? $project_config['backup_files'] : [];
         self::$delete_files = isset($project_config['delete_files']) ? $project_config['delete_files'] : [];
         self::$build_cmd = isset($project_config['build_cmd']) ? $project_config['build_cmd'] : '';
+        self::$update_db_table_structure_cmd = isset($project_config['update_db_table_structure_cmd']) ? $project_config['update_db_table_structure_cmd'] : [];
         self::$clean_cache_cmd = isset($project_config['clean_cache_cmd']) ? $project_config['clean_cache_cmd'] : [];
         self::$clean_file_cache = isset($project_config['clean_file_cache']) ? $project_config['clean_file_cache'] : [];
 
@@ -666,6 +668,35 @@ class GitService
         foreach ($builds as $build) {
             $cmd = 'cd ' . self::$project_path . ';';
             $cmd .= $build;
+            $output .= self::exe_cmd($cmd);
+        }
+
+        $result['output'] = $output;
+
+        return $result;
+    }
+
+    /**
+     * 更新数据库表结构
+     *
+     * @return string
+     */
+    public static function updateDbTableStructure()
+    {
+        $result['output'] = '';
+
+        if (empty(self::$build_cmd)) {
+            $result['output'] = '不需要清除命令缓存';
+            return $result;
+        }
+
+        $caches = self::$update_db_table_structure_cmd;
+
+        $output = '';
+
+        foreach ($caches as $cache) {
+            $cmd = 'cd ' . self::$project_path . ';';
+            $cmd .= $cache;
             $output .= self::exe_cmd($cmd);
         }
 

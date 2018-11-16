@@ -16,8 +16,12 @@
             <ul>
                 <li class="left">项目目录:</li>
                 <li class="right">{{ project_path }}  ==>> <br /><span class="project_comment">({{ project_comment}})</span></li>
+
+
                 <li class="left">当前分支:</li>
                 <li class="right"><span id="branch_name">{{ current_branch_name }} </span></li>
+
+
                 <li class="left">切换分支(checkout):</li>
                 <li class="right">
                     {% if switch_branch %}
@@ -46,6 +50,8 @@
                     <button id="del-branch" value="">删除分支</button>
                 </li>
                 </div>
+
+
                 <li class="left">同步分支(pull):</li>
                 <li class="right">
                     <button id="pull" value="">同步分支</button>
@@ -63,8 +69,11 @@
                     <li class="left green1">回滚代码(reset):</li>
                     <li class="right">版本号:<input type="text" value="" id="revsion" style="margin-left:7px;"> <button id="reset" value="">回滚代码</button></li>
                 </div>
-                <li class="left">删除缓存(cache):</li>
 
+                <li class="left">更新数据库表(db):</li>
+                <li class="right"><button id="update-db-table-structure" value="">更新表结构</button></li>
+
+                <li class="left">删除缓存(cache):</li>
                 <li class="right"><button id="delete-cache" value="">删除缓存</button></li>
             </ul>
             <div class="output" style="display: none;">
@@ -394,6 +403,35 @@
                         $('.output pre').html(r.data.output);
 
                         showLog(r.data.last_logs)
+                    }
+                },
+                dataType: 'json'
+            });
+        });
+
+
+        //更新数据库表结构
+        $('#update-db-table-structure').click(function () {
+
+            var url = '/deployer/updatedbtablestructure';
+            var data = {
+                project_name: '{{ project_name }}'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (r) {
+                    if (r.error > 0) {
+                        alert(r.info);
+                        return false;
+                    }
+                    else {
+                        $('.output').show();
+                        $('.output pre').html(r.data.output);
+
+                        showLog(r.data.last_logs);
                     }
                 },
                 dataType: 'json'
