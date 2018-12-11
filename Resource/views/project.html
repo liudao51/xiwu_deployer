@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>项目《{{ project_name }}》 - Deployer</title>
+    <title>项目《{{ project_name }}》 - Amii代码发布系统</title>
 
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <script src="/js/jquery-1.12.0.min.js"></script>
@@ -40,7 +40,7 @@
                 <li class="right">分支名:<input type="text" value="" id="new_branch_name" style="margin-left:7px;"> <button id="new-branch" value="">基于master创建分支</button></li>
                 <li class="left red1">创建分支(new2):</li>
                 <li class="right">分支名:<input type="text" value="" id="new_branch_name2" style="margin-left:7px;"> <button id="new-branch2" value="">基于原feature创建分支</button></li>
-                <li class="left green1">删除分支(del):</li>
+                <li class="left red1">删除分支(del):</li>
                 <li class="right">分支名:
                     <select name="branches2" id="branches2">
                         {% for item in branches %}
@@ -54,19 +54,15 @@
 
                 <li class="left">同步分支(pull):</li>
                 <li class="right">
-                    <button id="pull" value="">同步分支</button>
-                    <a href="#" id="show2" style="font-size:10px; text-decoration:underline; color:#0072e3;">智能/高级</a>
+                    <button id="intell-pull" value="">同步分支</button>
+                    <a href="#" id="show2" style="font-size:10px; text-decoration:underline; color:#0072e3;">高级同步</a>
                 </li>
                 <div class="none" id="hidediv2">
-                    <li class="left red1">智能同步(intell-pull):</li>
-                    <li class="right">
-                        <button id="intell-pull" value="">智能同步</button>
-                    </li>
-                    <li class="left green1">同步对象(fetch):</li>
+                    <li class="left red1">同步对象(fetch):</li>
                     <li class="right">
                         <button id="fetch" value="">同步对象</button>
                     </li>
-                    <li class="left green1">回滚代码(reset):</li>
+                    <li class="left red1">回滚代码(reset):</li>
                     <li class="right">版本号:<input type="text" value="" id="revsion" style="margin-left:7px;"> <button id="reset" value="">回滚代码</button></li>
                 </div>
 

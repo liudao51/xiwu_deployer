@@ -34,7 +34,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
@@ -57,7 +57,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
@@ -80,7 +80,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
@@ -103,7 +103,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
@@ -126,7 +126,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
@@ -149,7 +149,7 @@ $config['projects'] = array(
                 'migrate' => 'php laravel/artisan migrate;',
             ),
             'clean_cache_cmd' => array(
-                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear;', //命令间用";"分隔
+                'backend' => 'php laravel/artisan config:clear; php laravel/artisan route:clear; php laravel/artisan view:clear; php laravel/artisan config:cache;', //命令间用";"分隔
             ),
             'delete_files' => array(
                 '.idea'
