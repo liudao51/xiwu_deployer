@@ -179,6 +179,10 @@
 
         //删除分支
         $('#del-branch').click(function(){
+
+            $('.output').show();
+            $('.output pre').html("分支删除中，娘娘请稍等一下...");
+
             var url = '/deployer/deletebranch';
             var data = {
                 project_name: '{{ project_name }}',
@@ -204,6 +208,10 @@
 
         //正常切换分支
         $('#switch').click(function(){
+
+            $('.output').show();
+            $('.output pre').html("分支切换中，娘娘请稍等一下...");
+
             var url = '/deployer/switchbranch';
             var data = {
                 project_name: '{{ project_name }}',
@@ -242,6 +250,10 @@
 
         //强制切换分支
         $('#switch-force').click(function(){
+
+            $('.output').show();
+            $('.output pre').html("分支切换中，娘娘请稍等一下...");
+
             var url = '/deployer/forceswitchbranch';
             var data = {
                 project_name: '{{ project_name }}',
@@ -280,6 +292,10 @@
 
         //同步分支
         $('#pull').click(function () {
+
+            $('.output').show();
+            $('.output pre').html("分支同步中，娘娘请稍等一下...");
+
             var url = '/deployer/pull';
             var data = {
                 project_name: '{{ project_name }}',
@@ -309,6 +325,10 @@
 
         //智能同步
         $('#intell-pull').click(function () {
+
+            $('.output').show();
+            $('.output pre').html("分支同步中，娘娘请稍等一下...");
+
             var url = '/deployer/intellpull';
             var data = {
                 project_name: '{{ project_name }}',
@@ -338,6 +358,10 @@
 
         //同步对象
         $('#fetch').click(function () {
+
+            $('.output').show();
+            $('.output pre').html("对象同步中，娘娘请稍等一下...");
+
             var url = '/deployer/fetch';
             var data = {
                 project_name: '{{ project_name }}',
@@ -368,6 +392,9 @@
 
         //回滚
         $('#reset').click(function () {
+
+            $('.output').show();
+            $('.output pre').html("代码回滚中，娘娘请稍等一下...");
 
             if ($('#revsion').val() == '') {
                 alert('请输入版本号');
@@ -409,6 +436,9 @@
         //更新数据库表结构
         $('#update-db-table-structure').click(function () {
 
+            $('.output').show();
+            $('.output pre').html("数据库表结构更新中，娘娘请稍等一下...");
+
             var url = '/deployer/updatedbtablestructure';
             var data = {
                 project_name: '{{ project_name }}'
@@ -438,6 +468,9 @@
         //删除命令缓存
         $('#delete-cache').click(function () {
 
+            $('.output').show();
+            $('.output pre').html("缓存删除中，娘娘请稍等一下...");
+
             var url = '/deployer/deletecache';
             var data = {
                 project_name: '{{ project_name }}'
@@ -466,6 +499,9 @@
 
         //删除文件缓存
         $('#build').click(function () {
+
+            $('.output').show();
+            $('.output pre').html("文件缓存删除中，娘娘请稍等一下...");
 
             var url = '/deployer/build';
             var data = {
